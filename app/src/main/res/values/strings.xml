@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="click_to_signup">Click_to_signup</string>
+    <string name="signup">Signup</string>
+    <string name="click_to_login">Click_to_login</string>
+    <string name="hi_baby">Hi baby</string>
+    <string name="logout">Logout</string>
+    <string name="button">Button</string>
 </resources>
