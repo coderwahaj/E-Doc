@@ -26,7 +26,6 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.auth.FirebaseAuthCredentialsProvider;
 
-
 public class Signup extends AppCompatActivity {
 
     TextInputEditText editTextEmail, editTextPassword;
