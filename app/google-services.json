@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "809484280703",
+    "project_id": "e-doc-f6899",
+    "storage_bucket": "e-doc-f6899.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809484280703:android:15030d65dc4291874e304a",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAssRlr9d5LJt7awGpJ-59TR2RvbJQUwZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
