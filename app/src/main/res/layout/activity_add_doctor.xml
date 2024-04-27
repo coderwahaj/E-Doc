@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/et_doctor_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/doctor_name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/et_doctor_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/doctor_email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/et_doctor_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone_number"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/et_doctor_qualification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/qualification"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/et_doctor_experience"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/years_of_experience"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btn_add_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/add_doctor" />
+
+</LinearLayout>

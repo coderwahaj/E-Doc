@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:scrollbars="vertical"
+    android:padding="16dp">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        android:padding="16dp">
+    <TextView
+        android:id="@+id/feedback_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appointment_feedback1"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/feedback_question1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/how_satisfied_were_you_with_the_doctor_s_explanation" />
+
+    <RadioGroup
+        android:id="@+id/radio_group1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_option1a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/excellent1" />
+
+        <RadioButton
+            android:id="@+id/radio_option1b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/good1" />
+
+        <RadioButton
+            android:id="@+id/radio_option1c"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/fair1" />
+        <RadioButton
+            android:id="@+id/radio_option1d"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/poor1" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/feedback_question2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/how_courteous_and_professional_was_the_doctor" />
+
+    <RadioGroup
+        android:id="@+id/radio_group5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_option2a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/very_courteous_and_professional" />
+
+        <RadioButton
+            android:id="@+id/radio_option2b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/courteous_and_professional" />
+
+        <RadioButton
+            android:id="@+id/radio_option2c"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/neutral" />
+        <RadioButton
+            android:id="@+id/radio_option2d"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/impolite" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/feedback_question3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/how_would_you_rate_the_overall_experience_of_your_appointment" />
+
+    <RadioGroup
+        android:id="@+id/radio_group3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_option3a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/excellent1" />
+
+        <RadioButton
+            android:id="@+id/radio_option3b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/good1" />
+
+        <RadioButton
+            android:id="@+id/radio_option3c"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/average" />
+        <RadioButton
+            android:id="@+id/radio_option3d"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/poor1" />
+    </RadioGroup>
+    <TextView
+        android:id="@+id/feedback_question4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/how_likely_are_you_to_recommend_this_doctor_to_others" />
+
+    <RadioGroup
+        android:id="@+id/radio_group4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_option4a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/very_likely" />
+
+        <RadioButton
+            android:id="@+id/radio_option4b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/likely" />
+
+        <RadioButton
+            android:id="@+id/radio_option4c"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/neutral1" />
+        <RadioButton
+            android:id="@+id/radio_option4d"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/unlikely" />
+    </RadioGroup>
+    <TextView
+        android:id="@+id/feedback_question5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/please_provide_any_additional_feedback_or_comments_about_your_experience" />
+    <EditText
+        android:id="@+id/additional_comments_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/additional_comments"
+        android:inputType="textCapSentences|textAutoCorrect" />
+
+    <Button
+        android:id="@+id/submit_feedback_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:text="@string/submit_feedback" />
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>
