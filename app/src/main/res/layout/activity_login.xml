@@ -55,7 +55,7 @@
         android:gravity="center"
         android:layout_marginTop="20dp"
         android:id="@+id/signupNow"
-        android:text="@string/click_to_signup"
+        android:text="@string/create_new_account_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

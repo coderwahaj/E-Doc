@@ -9,4 +9,6 @@
     <string name="hi_baby">Hi baby</string>
     <string name="logout">Logout</string>
     <string name="button">Button</string>
+    <string name="create_new_account_signup">Create new account?Signup</string>
+    <string name="already_have_a_acoount_login">Already have a acoount?Login</string>
 </resources>
