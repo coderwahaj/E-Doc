@@ -15,35 +15,33 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".Feedback"
+            android:name=".Login_Patient"
             android:exported="false" />
+        <!-- Launchpage Activity as the main launcher activity -->
+        <activity
+            android:name=".Launchpage"
+            android:exported="true"> <!-- It must be exported to be accessible to the launcher -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Other activities without MAIN and LAUNCHER intent filters -->
+        <activity
+            android:name=".Feedback"
+            android:exported="true" /> <!-- Change to true if this activity is accessed from outside the app -->
         <activity
             android:name=".AddDoctor"
-            android:exported="false" />
+            android:exported="true" /> <!-- Change to true if this activity is accessed from outside the app -->
         <activity
             android:name=".Signup"
-            android:exported="false" />
+            android:exported="true" /> <!-- Change to true if this activity is accessed from outside the app -->
         <activity
-            android:name=".SignUp"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".Login_Admin"
+            android:exported="true" /> <!-- Since Login might be started from a notification or other external event -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

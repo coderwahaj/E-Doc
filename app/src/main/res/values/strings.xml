@@ -57,4 +57,13 @@
     <string name="please_provide_any_additional_feedback_or_comments_about_your_experience">Please provide any additional feedback or comments about your experience :</string>
     <string name="additional_comments_hint">Additional_comments_hint</string>
     <string name="additional_comments">Additional Comments</string>
+    <string name="login_as_admin">Login_as_admin</string>
+    <string name="login_as_employee">Login as Employee</string>
+    <string name="login_as_customer">Login as Customer</string>
+    <string name="login_as_admin1">Login as Admin</string>
+    <string name="e_doc">E-DOC</string>
+    <string name="login_as_patient">Login as Patient</string>
+    <string name="login_as_doctor">Login as Doctor</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>

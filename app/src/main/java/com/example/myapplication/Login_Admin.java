@@ -12,9 +12,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,7 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login extends AppCompatActivity {
+public class Login_Admin extends AppCompatActivity {
 
     TextInputEditText editTextEmail, editTextPassword;
     Button buttonLogin;
@@ -47,7 +44,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_admin);
         mAuth=FirebaseAuth.getInstance();
         editTextEmail=findViewById(R.id.email);
         editTextPassword=findViewById(R.id.password);
@@ -72,12 +69,12 @@ public class Login extends AppCompatActivity {
                 password=String.valueOf(editTextPassword.getText());
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Login.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login_Admin.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(TextUtils.isEmpty(password)){
-                    Toast.makeText(Login.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login_Admin.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -88,14 +85,17 @@ public class Login extends AppCompatActivity {
                                 progressbar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(getApplicationContext(),"Login Successful ",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),"Login Successful "
+                                            ,Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                } else {
+                                }
+                                else
+                                {
                                     // If sign in fails, display a message to the user.
 
-                                    Toast.makeText(Login.this, "Authentication failed.",
+                                    Toast.makeText(Login_Admin.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
 
                                 }
@@ -104,13 +104,6 @@ public class Login extends AppCompatActivity {
 
 
             }
-        });
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
         });
     }
 }
