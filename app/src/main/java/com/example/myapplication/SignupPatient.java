@@ -21,7 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Signup extends AppCompatActivity {
+public class SignupPatient extends AppCompatActivity {
 
     private TextInputEditText editTextName, editTextEmail, editTextPassword, editTextConfirmPassword;
     private Button buttonSignup;
@@ -45,7 +45,7 @@ public class Signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup_patient);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -60,7 +60,7 @@ public class Signup extends AppCompatActivity {
         loginNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Signup.this, Login_Admin.class);
+                Intent intent = new Intent(SignupPatient.this, Login_Admin.class);
                 startActivity(intent);
                 finish();
             }
@@ -75,27 +75,27 @@ public class Signup extends AppCompatActivity {
                 final String confirmPassword = editTextConfirmPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(Signup.this, "Enter name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupPatient.this, "Enter name", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(Signup.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupPatient.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(Signup.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupPatient.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(confirmPassword)) {
-                    Toast.makeText(Signup.this, "Confirm your password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupPatient.this, "Confirm your password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!password.equals(confirmPassword)) {
-                    Toast.makeText(Signup.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupPatient.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -107,12 +107,12 @@ public class Signup extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressbar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(Signup.this, "Account created successfully.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignupPatient.this, "Account created successfully.", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), Login_Admin.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Toast.makeText(Signup.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(SignupPatient.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });

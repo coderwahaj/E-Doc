@@ -66,4 +66,13 @@
     <string name="login_as_doctor">Login as Doctor</string>
     <string name="name">Name</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="admin_login1">Admin Login</string>
+    <string name="doctor_login">Doctor Login</string>
+    <string name="patient_login">Patient Login</string>
+    <string name="aadmin_login1">AAdmin_login1</string>
+    <string name="admin_login2">Admin Login</string>
+    <string name="patient_signup">Patient Signup</string>
+    <string name="admin_signup">Admin Signup</string>
+    <string name="doctor_signup">Doctor Signup</string>
 </resources>

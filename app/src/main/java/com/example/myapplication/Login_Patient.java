@@ -44,7 +44,7 @@ public class Login_Patient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login_admin);
+        setContentView(R.layout.activity_login_patient);
         mAuth=FirebaseAuth.getInstance();
         editTextEmail=findViewById(R.id.email);
         editTextPassword=findViewById(R.id.password);
@@ -54,7 +54,7 @@ public class Login_Patient extends AppCompatActivity {
         txtView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), Signup.class);
+                Intent intent=new Intent(getApplicationContext(), SignupPatient.class);
                 startActivity(intent);
                 finish();
             }

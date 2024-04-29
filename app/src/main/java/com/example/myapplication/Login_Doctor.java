@@ -20,7 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login_Admin extends AppCompatActivity {
+public class Login_Doctor extends AppCompatActivity {
 
     TextInputEditText editTextEmail, editTextPassword;
     Button buttonLogin;
@@ -44,7 +44,7 @@ public class Login_Admin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login_admin);
+        setContentView(R.layout.activity_login_doctor);
         mAuth=FirebaseAuth.getInstance();
         editTextEmail=findViewById(R.id.email);
         editTextPassword=findViewById(R.id.password);
@@ -54,7 +54,7 @@ public class Login_Admin extends AppCompatActivity {
         txtView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), SignupAdmin.class);
+                Intent intent=new Intent(getApplicationContext(), SignupDoctor.class);
                 startActivity(intent);
                 finish();
             }
@@ -69,12 +69,12 @@ public class Login_Admin extends AppCompatActivity {
                 password=String.valueOf(editTextPassword.getText());
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Login_Admin.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login_Doctor.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(TextUtils.isEmpty(password)){
-                    Toast.makeText(Login_Admin.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login_Doctor.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -95,7 +95,7 @@ public class Login_Admin extends AppCompatActivity {
                                 {
                                     // If sign in fails, display a message to the user.
 
-                                    Toast.makeText(Login_Admin.this, "Authentication failed.",
+                                    Toast.makeText(Login_Doctor.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
 
                                 }

@@ -25,8 +25,23 @@ public class Launchpage extends AppCompatActivity {
     }
 
     private void navigateToLogin(String role) {
-        Intent intent = new Intent(Launchpage.this, Login_Admin.class);
-        intent.putExtra("role", role); // Pass the role to the login activity
+        Intent intent;
+        switch (role) {
+            case "Admin":
+                intent = new Intent(Launchpage.this, Login_Admin.class);
+                break;
+            case "Patient":
+                intent = new Intent(Launchpage.this, Login_Patient.class);
+                break;
+            case "Doctor":
+                intent = new Intent(Launchpage.this, Login_Doctor.class);
+                break;
+            default:
+                // If role doesn't match any case, can redirect to a general login page or handle the error
+                throw new IllegalArgumentException("Invalid role: " + role);
+        }
+        intent.putExtra("role", role); // Pass the role to the respective login activity
         startActivity(intent);
+
     }
 }

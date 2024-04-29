@@ -8,13 +8,13 @@
     android:gravity="center"
     android:layout_height="match_parent"
     android:padding="80dp"
-    tools:context=".SignupAdmin">
+    tools:context=".SignupDoctor">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/admin_signup"
+        android:text="@string/doctor_signup"
         android:textSize="25sp"
         android:layout_marginBottom="20dp"
         android:textStyle="bold" />
