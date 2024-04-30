@@ -1,4 +1,10 @@
 <resources>
+    <string-array name="doctor_categories">
+        <item>Dentist</item>
+        <item>Eye Specialist</item>
+        <item>Surgeon</item>
+        <!-- Add more categories as needed -->
+    </string-array>
     <string name="app_name">My Application</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
