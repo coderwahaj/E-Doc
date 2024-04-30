@@ -18,14 +18,10 @@
             android:name=".Signup"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
-            android:exported="false" />
-        <activity
             android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,10 +30,21 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Declaration of PatientProfile activity -->
+        <activity
+            android:name=".PatientProfile"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorProfile"
+            android:exported="false" />
+        <activity android:name=".AdminProfile"
+            android:exported="false" /> <!-- Ensure exported is set appropriately -->
+        <activity android:name=".SignupPatient"
+            android:exported="false" />
+        <activity android:name=".SignupDoctor"
+            android:exported="false" />
     </application>
-
 </manifest>
