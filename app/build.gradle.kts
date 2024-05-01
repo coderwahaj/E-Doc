@@ -47,5 +47,10 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-firestore:24.11.1")
     implementation("com.google.firebase:firebase-auth")
+    implementation ("com.google.android.material:material:<version>")
+    implementation ("androidx.core:core-ktx:1.6.0")
+
+
+
 
 }

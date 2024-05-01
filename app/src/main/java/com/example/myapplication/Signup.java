@@ -1,119 +1,90 @@
 package com.example.myapplication;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.auth.FirebaseAuthCredentialsProvider;
-
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Signup extends AppCompatActivity {
-
-    TextInputEditText editTextEmail, editTextPassword;
-    Button buttonSignup;
-    FirebaseAuth mAuth;
-    ProgressBar progressbar;
-
-    TextView txtView;
+    private EditText editTextName, editTextEmail, editTextPassword, editTextConfirmPassword;
+    private Button buttonSignUp;
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
 
     @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is logged in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_signup);
-        mAuth=FirebaseAuth.getInstance();
-        editTextEmail=findViewById(R.id.email);
-        editTextPassword=findViewById(R.id.password);
-        buttonSignup=findViewById(R.id.btn_signup);
-        progressbar=findViewById(R.id.progressbar);
-        txtView=findViewById(R.id.loginNow);
-        txtView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        setContentView(R.layout.activity_signup); // make sure this matches your XML file name
 
-        buttonSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressbar.setVisibility(View.VISIBLE);
-                String email, password;
-                email=String.valueOf(editTextEmail.getText());
-                password=String.valueOf(editTextPassword.getText());
+        mAuth = FirebaseAuth.getInstance();
 
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Signup.this, "Enter email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        editTextName = findViewById(R.id.name);
+        editTextEmail = findViewById(R.id.email);
+        editTextPassword = findViewById(R.id.password);
+        editTextConfirmPassword = findViewById(R.id.confirmPassword);
+        buttonSignUp = findViewById(R.id.btn_signup);
+        progressBar = findViewById(R.id.progressbar);
 
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(Signup.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        buttonSignUp.setOnClickListener(view -> registerUser());
+    }
 
+    private void registerUser() {
+        String name = editTextName.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+        String confirmPassword = editTextConfirmPassword.getText().toString().trim();
 
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressbar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)) {
+            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                                    Toast.makeText(Signup.this, "Account created.",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent intent =new Intent(getApplicationContext(),Login.class);
-                                    startActivity(intent);
-                                    finish();
+        if (!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(Signup.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+        progressBar.setVisibility(View.VISIBLE);
 
-            }
-        });
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    progressBar.setVisibility(View.GONE);
+                    if (task.isSuccessful()) {
+                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                        updateUserInfo(name, firebaseUser);
+                    } else {
+                        Toast.makeText(Signup.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private void updateUserInfo(String name, FirebaseUser user) {
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(Signup.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Signup.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(Signup.this, "Failed to update user profile.", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
