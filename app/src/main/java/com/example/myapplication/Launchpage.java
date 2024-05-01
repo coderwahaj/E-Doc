@@ -2,15 +2,16 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Launchpage extends AppCompatActivity {
 
     Button btnAdmin, btnPatient, btnDoctor;
-
-    @Override
+   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_page);
@@ -28,20 +29,20 @@ public class Launchpage extends AppCompatActivity {
         Intent intent;
         switch (role) {
             case "Admin":
-                intent = new Intent(Launchpage.this, Login_Admin.class);
+                intent = new Intent(Launchpage.this, Login_Admin.class); // Intent for Admin login
                 break;
             case "Patient":
-                intent = new Intent(Launchpage.this, Login_Patient.class);
+                intent = new Intent(Launchpage.this, Login_Patient.class); // Intent for Patient login
                 break;
             case "Doctor":
-                intent = new Intent(Launchpage.this, Login_Doctor.class);
+                intent = new Intent(Launchpage.this, Login_Doctor.class); // Intent for Doctor login
                 break;
             default:
-                // If role doesn't match any case, can redirect to a general login page or handle the error
-                throw new IllegalArgumentException("Invalid role: " + role);
+                throw new IllegalStateException("Unexpected role: " + role);
         }
-        intent.putExtra("role", role); // Pass the role to the respective login activity
+        intent.putExtra("role", role); // Pass the role to the login activity
         startActivity(intent);
 
     }
+
 }

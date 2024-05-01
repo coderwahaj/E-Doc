@@ -15,6 +15,15 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".ScheduleAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchDoctor"
+            android:exported="false" />
+        <activity
+            android:name=".Login_Admin"
+            android:exported="false" />
+        <activity
             android:name=".SignupDoctor"
             android:exported="false" />
         <activity
@@ -38,12 +47,6 @@
         <activity
             android:name=".AddDoctor"
             android:exported="true" /> <!-- Change to true if this activity is accessed from outside the app -->
-        <activity
-            android:name=".SignupAdmin"
-            android:exported="true" /> <!-- Change to true if this activity is accessed from outside the app -->
-        <activity
-            android:name=".Login_Admin"
-            android:exported="true" /> <!-- Since Login might be started from a notification or other external event -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />

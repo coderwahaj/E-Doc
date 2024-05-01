@@ -50,15 +50,6 @@ public class Login_Doctor extends AppCompatActivity {
         editTextPassword=findViewById(R.id.password);
         buttonLogin=findViewById(R.id.btn_login);
         progressbar=findViewById(R.id.progressbar);
-        txtView=findViewById(R.id.signupNow);
-        txtView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), SignupDoctor.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override

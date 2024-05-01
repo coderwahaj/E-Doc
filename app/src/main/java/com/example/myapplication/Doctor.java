@@ -1,64 +1,31 @@
 package com.example.myapplication;
 
-
-
 public class Doctor {
-    private String name;
-    private String email;
-    private String phone;
-    private String qualification;
-    private String experience;
+    private String Name;
+    private String Email;
+    private String Phone;
+    private String Qualification;
+    private String Experience;
+    private String Category;
 
-    public Doctor() {
-        // Default constructor required for Firestore
+    // Constructor
+    public Doctor(String name, String email, String phone, String qualification, String experience, String category) {
+        this.Name = name;
+        this.Email = email;
+        this.Phone = phone;
+        this.Qualification = qualification;
+        this.Experience = experience;
+        this.Category = category;
     }
 
-    public Doctor(String name, String email, String phone, String qualification, String experience) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.qualification = qualification;
-        this.experience = experience;
-    }
+    // Getters and setters for each field
+    public String getName() { return Name; }
+    public String getEmail() { return Email; }
+    public String getPhone() { return Phone; }
+    public String getQualification() { return Qualification; }
+    public String getExperience() { return Experience; }
+    public String getCategory() { return Category; }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
-    }
-
-    public String getExperience() {
-        return experience;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience;
-    }
+    // Required for Firestore to deserialize
+    public Doctor() {}
 }
-

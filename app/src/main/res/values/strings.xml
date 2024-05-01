@@ -75,4 +75,16 @@
     <string name="patient_signup">Patient Signup</string>
     <string name="admin_signup">Admin Signup</string>
     <string name="doctor_signup">Doctor Signup</string>
+    <string name="category">Category</string>
+    <string name="search_doctors">Search Doctors</string>
+    <string name="search">Search</string>
+    <string name="show_all_doctors">Show All Doctors</string>
+    <string name="create_new_account_signup3">Create_new_account_signup</string>
+    <string name="add_doctor1">Add Doctor</string>
+    <string name="e_doc1">E-DOC</string>
+    <string name="password1">Password</string>
+    <string name="e_doc3">E-DOC</string>
+    <string name="confirm_pasword">Confirm Pasword</string>
+    <string name="name2">Name</string>
+
 </resources>
