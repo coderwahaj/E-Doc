@@ -110,5 +110,11 @@
     <string name="fee">Fee</string>
     <string name="category1">category</string>
     <string name="search_doctor">Search Doctor</string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="approved_appointments">Approved Appointments</string>
+    <string name="upcoming_appointments1">Upcoming Appointments</string>
+    <string name="pending_appointments2">Pending Appointments1</string>
+    <string name="ok4">OK</string>
+    <string name="pending_appointments3">Pending Appointments</string>
 
 </resources>

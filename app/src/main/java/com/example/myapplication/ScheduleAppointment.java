@@ -38,7 +38,17 @@ public class ScheduleAppointment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_appointment);
+        TextView doctorNameTextView = findViewById(R.id.doctorNameTextView);
+        TextView doctorCategoryTextView = findViewById(R.id.doctorCategoryTextView);
+        TextView feeTextView = findViewById(R.id.feeTextView);
 
+        String doctorName = getIntent().getStringExtra("doctorName");
+        String doctorCategory = getIntent().getStringExtra("doctorCategory");
+        String fee = getIntent().getStringExtra("fee");
+
+        doctorNameTextView.setText(doctorName);
+        doctorCategoryTextView.setText(doctorCategory);
+        feeTextView.setText(String.format("Rs. %s", fee));
         // Initialize Firestore and FirebaseAuth
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();

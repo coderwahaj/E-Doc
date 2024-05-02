@@ -1,18 +1,22 @@
+
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PatientProfile extends AppCompatActivity {
 
     private TextView txtPatientName, txtPatientAge, txtPatientGender, txtPatientMedicalHistory;
-    private Button btnEditProfile;
+    private Button btnEditProfile, btnBookAppointment, btnViewPastAppointments;
+    private String patientEmail;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +28,8 @@ public class PatientProfile extends AppCompatActivity {
         txtPatientGender = findViewById(R.id.txtPatientGender);
         txtPatientMedicalHistory = findViewById(R.id.txtPatientMedicalHistory);
         btnEditProfile = findViewById(R.id.btnEditProfile);
+        btnBookAppointment = findViewById(R.id.btnBookAppointment);
+        btnViewPastAppointments = findViewById(R.id.btnViewPastAppointments);
 
         // Get data from intent
         Bundle extras = getIntent().getExtras();
@@ -32,6 +38,7 @@ public class PatientProfile extends AppCompatActivity {
             String age = extras.getString("dateOfBirth", "N/A");
             String gender = extras.getString("gender", "N/A");
             String medicalHistory = extras.getString("medicalHistory", "No history provided.");
+            patientEmail = extras.getString("email"); // Store the email passed from Login
 
             // Set data to views
             txtPatientName.setText("Name: " + name);
@@ -43,8 +50,11 @@ public class PatientProfile extends AppCompatActivity {
         // Handle edit profile button click
         btnEditProfile.setOnClickListener(v -> openEditProfileActivity());
 
-        // Populate past appointments table with dummy data
-        populatePastAppointmentsTable();
+        // Handle book appointment button click
+        btnBookAppointment.setOnClickListener(v -> openBookAppointmentActivity());
+
+        // Handle view past appointments button click
+        btnViewPastAppointments.setOnClickListener(v -> openViewPastAppointmentsActivity());
     }
 
     private void openEditProfileActivity() {
@@ -53,56 +63,17 @@ public class PatientProfile extends AppCompatActivity {
         intent.putExtra("dateOfBirth", txtPatientAge.getText().toString());
         intent.putExtra("gender", txtPatientGender.getText().toString());
         intent.putExtra("medicalHistory", txtPatientMedicalHistory.getText().toString());
+        intent.putExtra("email", patientEmail); // Pass the email to the next activity
         startActivity(intent);
     }
 
-    private void populatePastAppointmentsTable() {
-        TableLayout tablePastAppointments = findViewById(R.id.tablePastAppointments);
 
-        // Dummy data for past appointments
-        String[] appointmentDates = {"2024-04-01", "2024-03-15", "2024-02-28"};
-        String[] doctors = {"Dr. Smith", "Dr. Johnson", "Dr. Brown"};
-        String[] descriptions = {"Checkup", "X-ray", "Blood test"};
-
-        // Loop to add rows for each past appointment
-        for (int i = 0; i < appointmentDates.length; i++) {
-            TableRow row = new TableRow(this);
-            row.setClickable(true);
-            int finalI = i;
-            row.setOnClickListener(v -> {
-                // Handle row click, e.g., open a new activity with details
-                final int j= finalI;
-                openAppointmentDetailActivity(appointmentDates[j], doctors[j], descriptions[j]);
-            });
-
-            TextView dateTextView = new TextView(this);
-            dateTextView.setText(appointmentDates[i]);
-            dateTextView.setPadding(16, 16, 16, 16); // Increased padding
-            dateTextView.setTextSize(18); // Increased text size
-            row.addView(dateTextView);
-
-            TextView doctorTextView = new TextView(this);
-            doctorTextView.setText(doctors[i]);
-            doctorTextView.setPadding(16, 16, 16, 16);
-            doctorTextView.setTextSize(18);
-            row.addView(doctorTextView);
-
-            TextView descriptionTextView = new TextView(this);
-            descriptionTextView.setText(descriptions[i]);
-            descriptionTextView.setPadding(16, 16, 16, 16);
-            descriptionTextView.setTextSize(18);
-            row.addView(descriptionTextView);
-
-            tablePastAppointments.addView(row);
-        }
+    private void openBookAppointmentActivity() {
+        // Implement opening the activity for booking appointments
     }
 
-    private void openAppointmentDetailActivity(String date, String doctor, String description) {
-        Intent intent = new Intent(PatientProfile.this, AppointmentDetailActivity.class);
-        intent.putExtra("date", date);
-        intent.putExtra("doctor", doctor);
-        intent.putExtra("description", description);
-        startActivity(intent);
+    private void openViewPastAppointmentsActivity() {
+        // Implement opening the activity for viewing past appointments
     }
 }
 

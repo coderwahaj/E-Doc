@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pending_appointments1"
+        android:text="@string/pending_appointments3"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"/>
@@ -24,6 +24,6 @@
         android:id="@+id/buttonOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ok2"
+        android:text="@string/ok4"
         android:onClick="finishActivity"/>
 </LinearLayout>
