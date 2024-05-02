@@ -86,5 +86,29 @@
     <string name="e_doc3">E-DOC</string>
     <string name="confirm_pasword">Confirm Pasword</string>
     <string name="name2">Name</string>
+    <string name="doctor_name2">Doctor Name</string>
+    <string name="schedule_appointment">Schedule_appointment</string>
+    <string name="select_date">Select_date</string>
+    <string name="done">Done</string>
+    <string name="pending_appointments">Pending Appointments</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no" />
+    <string name="No">\n\n</string>
+    <string name="pending_appointments1">Pending Appointments</string>
+    <string name="ok2">Ok</string>
+    <string name="view_appointments" />
+    <string name="view_upcoming" />
+    <string name="scheduleappointment">ScheduleAppointment</string>
+    <string name="view_appointment">View Appointment</string>
+    <string name="view_upcoming_appointment">View Upcoming Appointment</string>
+    <string name="appointment">Appointment</string>
+    <string name="no1">No</string>
+    <string name="schedule_appointment2">Schedule Appointment</string>
+    <string name="select_date2">Select date</string>
+    <string name="enter_doctor_s_fee">Enter Doctor\'s Fee</string>
+    <string name="fee">Fee</string>
+    <string name="category1">category</string>
+    <string name="search_doctor">Search Doctor</string>
 
 </resources>

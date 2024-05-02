@@ -79,26 +79,24 @@ public class Login_Patient extends AppCompatActivity {
                 }
 
                 mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressbar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(getApplicationContext(),"Login Successful "
-                                            ,Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                                else
-                                {
-                                    // If sign in fails, display a message to the user.
+                        .addOnCompleteListener(task ->
+                        {
+                            progressbar.setVisibility(View.GONE);
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Toast.makeText(getApplicationContext(),"Login Successful "
+                                        ,Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), SearchDoctor.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else
+                            {
+                                // If sign in fails, display a message to the user.
 
-                                    Toast.makeText(Login_Patient.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login_Patient.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
 
-                                }
                             }
                         });
 

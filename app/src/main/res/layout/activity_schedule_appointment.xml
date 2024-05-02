@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="80dp"
+    tools:context=".ScheduleAppointment">
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/schedule_appointment2"
+        android:textSize="25sp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:textStyle="bold" />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="237dp"
+        android:layout_height="wrap_content">
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="5.5dp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/datePickerEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_calendar"
+            android:focusable="false"
+            android:hint="@string/select_date2"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:layout_marginTop="10dp" />
+
+</LinearLayout>

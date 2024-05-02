@@ -20,7 +20,27 @@
         android:text="@string/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
+    <Button
+        android:id="@+id/Doctor"
+        android:text="Doctors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/Appointment"
+        android:text="@string/appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/viewAppointmentsButton"
+        android:text="@string/view_appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/viewUpcomingAppointments"
+        android:text="@string/view_upcoming_appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       />
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"

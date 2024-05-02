@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class AddDoctor extends AppCompatActivity {
     private EditText etDoctorName, etDoctorEmail, etDoctorPhone, etDoctorQualification,
-            etDoctorExperience, etDoctorCategory, etDoctorPassword, etDoctorConfirmPassword;
+            etDoctorExperience, etDoctorCategory, etDoctorPassword, etDoctorConfirmPassword,doctorFeeEditText;
     private FirebaseFirestore db;
     private FirebaseAuth auth;
 
@@ -37,31 +37,33 @@ public class AddDoctor extends AppCompatActivity {
         etDoctorCategory = findViewById(R.id.et_doctor_category);
         etDoctorPassword = findViewById(R.id.et_doctor_password);
         etDoctorConfirmPassword = findViewById(R.id.et_doctor_confirm_password);
+        doctorFeeEditText = findViewById(R.id.doctorFeeEditText);
+
         Button btnAddDoctor = findViewById(R.id.btn_add_doctor);
 
         btnAddDoctor.setOnClickListener(v -> {
-            String name = etDoctorName.getText().toString().trim();
-            String email = etDoctorEmail.getText().toString().trim();
-            String phone = etDoctorPhone.getText().toString().trim();
-            String qualification = etDoctorQualification.getText().toString().trim();
-            String experience = etDoctorExperience.getText().toString().trim();
-            String category = etDoctorCategory.getText().toString().trim();
-            String password = etDoctorPassword.getText().toString().trim();
-            String confirmPassword = etDoctorConfirmPassword.getText().toString().trim();
-
-            if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || qualification.isEmpty() ||
-                    experience.isEmpty() || category.isEmpty() || password.isEmpty() || !password.equals(confirmPassword) || password.length() < 6) {
+            String Name = etDoctorName.getText().toString().trim();
+            String Email = etDoctorEmail.getText().toString().trim();
+            String Phone = etDoctorPhone.getText().toString().trim();
+            String Qualification = etDoctorQualification.getText().toString().trim();
+            String Experience = etDoctorExperience.getText().toString().trim();
+            String Category = etDoctorCategory.getText().toString().trim();
+            String Password = etDoctorPassword.getText().toString().trim();
+            String ConfirmPassword = etDoctorConfirmPassword.getText().toString().trim();
+            String fee = doctorFeeEditText.getText().toString().trim();
+            if (Name.isEmpty() || Email.isEmpty() || Phone.isEmpty() || Qualification.isEmpty() ||
+                    Experience.isEmpty() || Category.isEmpty() || Password.isEmpty() || !Password.equals(ConfirmPassword) || Password.length() < 6) {
                 Toast.makeText(AddDoctor.this, "Please ensure all fields are filled correctly and passwords match.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            auth.createUserWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword(Email, Password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Doctor doctor = new Doctor(name, email, phone, qualification, experience, category);
+                            Doctor doctor = new Doctor(Name, Email, Phone, Qualification, Experience, Category,Password,ConfirmPassword,fee);
                             addDoctorToFirestore(doctor);
                         } else {
-                            Toast.makeText(AddDoctor.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddDoctor.this, "Authentication failed: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         });

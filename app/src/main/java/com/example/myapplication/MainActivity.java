@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,13 +32,14 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button btn;
+    Button btn1,btn2,btn3 ,btn4,btn5;
     TextView textView;
     FirebaseUser user;
     Connection con;
     String str;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -45,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auth=FirebaseAuth.getInstance();
-        btn=findViewById(R.id.logout);
+        btn1=findViewById(R.id.logout);
+        btn2=findViewById(R.id.Doctor);
+        btn3=findViewById(R.id.Appointment);
+        btn4=findViewById(R.id.viewAppointmentsButton);
+        btn5=findViewById(R.id.viewUpcomingAppointments);
         textView=findViewById(R.id.user_details);
         user=auth.getCurrentUser();
         if(user==null){
@@ -58,11 +64,41 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(user.getEmail());
         }
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent =new Intent(getApplicationContext(),AddDoctor.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btn2.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent =new Intent(getApplicationContext(),SearchDoctor.class);
+            startActivity(intent);
+            finish();
+        });
+        btn3.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent =new Intent(getApplicationContext(),ScheduleAppointment.class);
+            startActivity(intent);
+            finish();
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent =new Intent(getApplicationContext(),ApproveAppointmentActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent =new Intent(getApplicationContext(),UpcomingAppointmentsActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -104,5 +140,10 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+    private void navigateToScheduleAppointment() {
+        Intent intent = new Intent(getApplicationContext(), ScheduleAppointment.class);
+        startActivity(intent);
+        finish();
     }
 }

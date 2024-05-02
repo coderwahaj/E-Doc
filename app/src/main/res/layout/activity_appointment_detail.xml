@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+    <TextView
+        android:id="@+id/txtDoctor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Doctor"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/txtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/feedbackInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write your feedback here"
+        android:layout_marginTop="24dp"/>
+
+    <Button
+        android:id="@+id/btnSubmitFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Feedback"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

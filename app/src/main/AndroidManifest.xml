@@ -8,14 +8,28 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".ScheduleAppointmentActivity"
+            android:name=".AppointmentDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditPatientProfile"
+            android:exported="false" />
+        <activity
+            android:name=".PatientProfile"
+            android:exported="false" />
+        <activity
+            android:name=".UpcomingAppointmentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ApproveAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleAppointment"
             android:exported="false" />
         <activity
             android:name=".SearchDoctor"
@@ -53,6 +67,7 @@
         <activity
             android:name=".SignupPatient"
             android:exported="true" />
+
     </application>
 
 </manifest>

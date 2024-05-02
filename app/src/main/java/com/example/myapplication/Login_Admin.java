@@ -63,7 +63,7 @@ public class Login_Admin extends AppCompatActivity {
                 Toast.makeText(Login_Admin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AddDoctor.class);
                 startActivity(intent);
                 finish();
             }

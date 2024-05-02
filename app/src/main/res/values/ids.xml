@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="recyclerViewUpcomingAppointments" type="id" />
+    <item name="buttonOkUpcoming" type="id" />
+    <item name="txtPatientName" type="id" />
+    <item name="feeTextView" type="id" />
+    <item name="doctorsRecyclerView" type="id" />
+    <item name="searchQueryEditText" type="id" />
+</resources>
