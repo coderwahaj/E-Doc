@@ -77,21 +77,18 @@ public class ScheduleAppointment extends AppCompatActivity {
         });
 
         // Immediately check the user status
-      //  checkCurrentUser();
+          checkCurrentUser();
     }
 
-   /* private void checkCurrentUser() {
+    private void checkCurrentUser() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
-            Log.d("AuthCheck", "User not logged in");
             Intent intent = new Intent(this, Login_Patient.class);
             startActivity(intent);
             finish();
-        } else {
-            Log.d("AuthCheck", "User is logged in: " + user.getEmail());
         }
-    }*/
+    }
 
     private void showDatePicker() {
         final Calendar calendar = Calendar.getInstance();
@@ -111,6 +108,7 @@ public class ScheduleAppointment extends AppCompatActivity {
     private void showMessageAndNavigate(String message) {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
+            String userId = user.getEmail();
             String userEmail = user.getEmail();
 
             // Retrieve the user's name from the patientsList collection
@@ -126,6 +124,7 @@ public class ScheduleAppointment extends AppCompatActivity {
                             String selectedTime = timePicker.getHour() + ":" + timePicker.getMinute();
 
                             Map<String, Object> appointment = new HashMap<>();
+                            appointment.put("userId",userId);
                             appointment.put("name", userName);
                             appointment.put("email", userEmail);
                             appointment.put("date", selectedDate);
@@ -149,7 +148,7 @@ public class ScheduleAppointment extends AppCompatActivity {
 
 
     private void navigateToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, PatientProfile.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

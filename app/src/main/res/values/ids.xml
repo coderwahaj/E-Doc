@@ -6,4 +6,9 @@
     <item name="feeTextView" type="id" />
     <item name="doctorsRecyclerView" type="id" />
     <item name="searchQueryEditText" type="id" />
+    <item name="txtDoctorName" type="id" />
+    <item name="txtDoctorCategory" type="id" />
+    <item name="txtDoctorPhone" type="id" />
+    <item name="txtDoctorQualification" type="id" />
+    <item name="txtDoctorFee" type="id" />
 </resources>

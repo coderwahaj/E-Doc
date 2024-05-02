@@ -116,5 +116,20 @@
     <string name="pending_appointments2">Pending Appointments1</string>
     <string name="ok4">OK</string>
     <string name="pending_appointments3">Pending Appointments</string>
+    <string name="your_appointments">Your Appointments</string>
+    <string name="ok3">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="your_appointments1">Your Appointments</string>
+    <string name="no4">No</string>
+    <string name="view_upcoming_appointments">View Upcoming Appointments</string>
+    <string name="view_pending_appointments">View Pending Appointments</string>
+    <string name="hello_admin">Hello Admin!</string>
+    <string name="name5">Name</string>
+    <string name="genrate_invoice">Genrate Invoice</string>
+    <string name="view_reports">View Reports</string>
+    <string name="generate_invoice">Generate Invoice</string>
+    <string name="add_doctor4">Add Doctor</string>
+    <string name="generate_invoice2">Generate Invoice</string>
+    <string name="cancel_appointment">Cancel Appointment</string>
 
 </resources>

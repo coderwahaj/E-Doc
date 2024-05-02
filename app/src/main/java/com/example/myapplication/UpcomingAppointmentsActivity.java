@@ -8,12 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -27,6 +31,7 @@ public class UpcomingAppointmentsActivity extends AppCompatActivity {
     private UpcomingAppointmentAdapter adapter;
     private final List<Map<String, Object>> appointments = new ArrayList<>();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +45,8 @@ public class UpcomingAppointmentsActivity extends AppCompatActivity {
 
         Button okButton = findViewById(R.id.buttonOk);
         okButton.setOnClickListener(v -> {
-            Intent intent = new Intent(UpcomingAppointmentsActivity.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish(); // Optionally keep this if you want to remove this activity from the back stack
+            FirebaseUser user = mAuth.getCurrentUser();
+           // fetchUserDetailsAndNavigate1(user.getEmail());
         });
 
         fetchAppointments();
@@ -122,4 +125,33 @@ public class UpcomingAppointmentsActivity extends AppCompatActivity {
             }
         }
     }
-}
+    /*private void fetchUserDetailsAndNavigate1(String userEmail) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("doctors")
+                .whereEqualTo("email", userEmail)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        String name = documentSnapshot.getString("name");
+                        String category = documentSnapshot.getString("category");
+                        String qualification = documentSnapshot.getString("qualification");
+                        String email = documentSnapshot.getString("email");
+                        String experience=documentSnapshot.getString("experience");
+                        String phone= documentSnapshot.getString("phone");
+                        Intent intent = new Intent(UpcomingAppointmentsActivity.this, DoctorProfile.class);
+                        intent.putExtra("name", name);
+                        intent.putExtra("category", category);
+                        intent.putExtra("qualification", qualification);
+                        intent.putExtra("experience",experience);
+                        intent.putExtra("phone",phone);
+                        intent.putExtra("email", email);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(UpcomingAppointmentsActivity.this, "Doctor's details not found", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(UpcomingAppointmentsActivity.this, "Failed to fetch doctor details: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });*/
+    }

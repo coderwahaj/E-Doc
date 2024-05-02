@@ -11,10 +11,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,6 +72,10 @@ public class SignupPatient extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+                        // User creation successful, now save data to Firestore
+                        String userId = mAuth.getCurrentUser().getUid(); // Get user ID
+
+                        // Create a map to store user data
                         Map<String, Object> user = new HashMap<>();
                         user.put("name", name);
                         user.put("email", email);
@@ -81,8 +83,9 @@ public class SignupPatient extends AppCompatActivity {
                         user.put("gender", gender);
                         user.put("medicalHistory", medicalHistory);
 
+                        // Store user data in Firestore
                         db.collection("patientsList")
-                                .document(mAuth.getCurrentUser().getUid())
+                                .document(userId)
                                 .set(user)
                                 .addOnSuccessListener(aVoid -> {
                                     Toast.makeText(SignupPatient.this, "Account created and data stored successfully.", Toast.LENGTH_SHORT).show();
@@ -94,6 +97,7 @@ public class SignupPatient extends AppCompatActivity {
                                     buttonSignup.setVisibility(View.VISIBLE);
                                 });
                     } else {
+                        // User creation failed, show error message
                         Toast.makeText(SignupPatient.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
                         buttonSignup.setVisibility(View.VISIBLE);
@@ -108,4 +112,3 @@ public class SignupPatient extends AppCompatActivity {
         finish();
     }
 }
-

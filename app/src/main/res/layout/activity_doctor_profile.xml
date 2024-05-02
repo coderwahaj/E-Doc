@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:padding="16dp">
 
-        <!-- Profile information -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="120dp"
@@ -22,84 +20,83 @@
             android:layout_gravity="center_horizontal"/>
 
         <TextView
-            android:id="@+id/txtPatientName"
+            android:id="@+id/txtDoctorName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:layout_marginTop="16dp"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
         <TextView
-            android:id="@+id/txtPatientEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email: "
-            android:textSize="16sp"
-            android:layout_marginTop="8dp" />
-        <TextView
-            android:id="@+id/txtPatientAge"
+            android:id="@+id/txtDoctorCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date of Birth"
+            android:text="Category"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
-            android:id="@+id/txtPatientGender"
+            android:id="@+id/txtDoctorPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gender"
+            android:text="Phone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        <TextView
+            android:id="@+id/txtdoctorEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
-            android:id="@+id/txtPatientMedicalHistory"
+            android:id="@+id/txtDoctorQualification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Medical History"
+            android:text="Qualification"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-        <!-- Edit Profile Button -->
+        <TextView
+            android:id="@+id/txtDoctorExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Experience"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
         <Button
             android:id="@+id/btnEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edit Profile"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="16dp"/>
 
-        <!-- Action Buttons Table -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TableLayout
-                android:id="@+id/tableActionButtons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:stretchColumns="*"
                 android:background="@drawable/table_border"
-                android:padding="8dp"> <!-- Added padding for touch friendliness -->
+                android:padding="8dp">
 
-                <!-- Book Appointment Button -->
                 <TableRow>
                     <Button
                         android:id="@+id/btnBookAppointment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Book Appointment"/>
+                        android:text="@string/view_pending_appointments"/>
                 </TableRow>
 
                 <TableRow>
                     <Button
-                        android:id="@+id/btnCancelAppointment"
+                        android:id="@+id/btnViewPastAppointments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cancel_appointment"/>
+                        android:text="@string/view_upcoming_appointments"/>
                 </TableRow>
 
-                <!-- Other Action Buttons can be added here -->
+                <!-- Additional action buttons can be added here if needed -->
             </TableLayout>
-
         </ScrollView>
-
     </LinearLayout>
-
 </androidx.drawerlayout.widget.DrawerLayout>

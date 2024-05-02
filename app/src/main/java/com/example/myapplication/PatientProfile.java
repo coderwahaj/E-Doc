@@ -1,4 +1,3 @@
-
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
@@ -15,21 +14,23 @@ public class PatientProfile extends AppCompatActivity {
     private TextView txtPatientName, txtPatientAge, txtPatientGender, txtPatientMedicalHistory;
     private Button btnEditProfile, btnBookAppointment, btnViewPastAppointments;
     private String patientEmail;
-
-    @SuppressLint("SetTextI18n")
+    private TextView txtPatientEmail;
+    @SuppressLint({"SetTextI18n", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_profile);
 
         // Initialize views
+        // Initialize views
         txtPatientName = findViewById(R.id.txtPatientName);
         txtPatientAge = findViewById(R.id.txtPatientAge);
         txtPatientGender = findViewById(R.id.txtPatientGender);
         txtPatientMedicalHistory = findViewById(R.id.txtPatientMedicalHistory);
+        txtPatientEmail = findViewById(R.id.txtPatientEmail); // Initialize email TextView
         btnEditProfile = findViewById(R.id.btnEditProfile);
         btnBookAppointment = findViewById(R.id.btnBookAppointment);
-        btnViewPastAppointments = findViewById(R.id.btnViewPastAppointments);
+        btnViewPastAppointments = findViewById(R.id.btnCancelAppointment);
 
         // Get data from intent
         Bundle extras = getIntent().getExtras();
@@ -38,22 +39,19 @@ public class PatientProfile extends AppCompatActivity {
             String age = extras.getString("dateOfBirth", "N/A");
             String gender = extras.getString("gender", "N/A");
             String medicalHistory = extras.getString("medicalHistory", "No history provided.");
-            patientEmail = extras.getString("email"); // Store the email passed from Login
+            patientEmail = extras.getString("email", "Email not provided"); // Handle null email
 
             // Set data to views
             txtPatientName.setText("Name: " + name);
             txtPatientAge.setText("Date of Birth: " + age);
             txtPatientGender.setText("Gender: " + gender);
             txtPatientMedicalHistory.setText("Medical History: " + medicalHistory);
+            txtPatientEmail.setText("Email: " + patientEmail); // Set email text
         }
 
-        // Handle edit profile button click
+        // Handle button clicks
         btnEditProfile.setOnClickListener(v -> openEditProfileActivity());
-
-        // Handle book appointment button click
         btnBookAppointment.setOnClickListener(v -> openBookAppointmentActivity());
-
-        // Handle view past appointments button click
         btnViewPastAppointments.setOnClickListener(v -> openViewPastAppointmentsActivity());
     }
 
@@ -69,11 +67,15 @@ public class PatientProfile extends AppCompatActivity {
 
 
     private void openBookAppointmentActivity() {
-        // Implement opening the activity for booking appointments
+        Intent intent = new Intent(this, SearchDoctor.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void openViewPastAppointmentsActivity() {
-        // Implement opening the activity for viewing past appointments
-    }
+        Intent intent = new Intent(this, CancelAppointmentsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();   }
 }
-

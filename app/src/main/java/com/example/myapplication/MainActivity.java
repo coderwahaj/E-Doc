@@ -7,142 +7,103 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firestore.v1.WriteResult;
 
-import java.sql.Connection;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseAuth auth;
-    Button btn1,btn2,btn3 ,btn4,btn5;
-    TextView textView;
-    FirebaseUser user;
-    Connection con;
-    String str;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final String TAG = "MainActivity";
+
+    private FirebaseAuth auth;
+    private Button btn1, btn2, btn3, btn4, btn5, btnx;
+    private TextView textView;
+    private FirebaseUser user;
 
     @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        auth=FirebaseAuth.getInstance();
-        btn1=findViewById(R.id.logout);
-        btn2=findViewById(R.id.Doctor);
-        btn3=findViewById(R.id.Appointment);
-        btn4=findViewById(R.id.viewAppointmentsButton);
-        btn5=findViewById(R.id.viewUpcomingAppointments);
-        textView=findViewById(R.id.user_details);
-        user=auth.getCurrentUser();
-        if(user==null){
-            Intent intent =new Intent(getApplicationContext(),Launchpage.class);
+        auth = FirebaseAuth.getInstance();
+        btn1 = findViewById(R.id.logout);
+        btn2 = findViewById(R.id.Doctor);
+        btn3 = findViewById(R.id.Appointment);
+        btn4 = findViewById(R.id.viewAppointmentsButton);
+        btn5 = findViewById(R.id.viewUpcomingAppointments);
+        btnx = findViewById(R.id.btnYourAppointments);
+        textView = findViewById(R.id.user_details);
+        user = auth.getCurrentUser();
+
+        if (user == null) {
+            Intent intent = new Intent(getApplicationContext(), Launchpage.class);
             startActivity(intent);
             finish();
-
+        } else {
+            // Fetch user's name and email from Firestore
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference docRef = db.collection("patientsList").document(user.getUid());
+            docRef.get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    String name = documentSnapshot.getString("name");
+                    String email = documentSnapshot.getString("email");
+                    // Display user's name and email
+                    textView.setText("Name: " + name + "\nEmail: " + email);
+                } else {
+                    Log.d(TAG, "No such document");
+                }
+            }).addOnFailureListener(e -> {
+                Log.d(TAG, "Error fetching document: " + e);
+            });
         }
-        else{
-            textView.setText(user.getEmail());
-        }
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent =new Intent(getApplicationContext(),AddDoctor.class);
-                startActivity(intent);
-                finish();
-            }
+        btn1.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getApplicationContext(), AddDoctor.class);
+            startActivity(intent);
+            finish();
         });
         btn2.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
-            Intent intent =new Intent(getApplicationContext(),SearchDoctor.class);
+            Intent intent = new Intent(getApplicationContext(), SearchDoctor.class);
             startActivity(intent);
             finish();
         });
         btn3.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
-            Intent intent =new Intent(getApplicationContext(),ScheduleAppointment.class);
+            Intent intent = new Intent(getApplicationContext(), ScheduleAppointment.class);
             startActivity(intent);
             finish();
         });
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent =new Intent(getApplicationContext(),ApproveAppointmentActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        btn4.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getApplicationContext(), ApproveAppointmentActivity.class);
+            startActivity(intent);
+            finish();
         });
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent =new Intent(getApplicationContext(),UpcomingAppointmentsActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        btn5.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getApplicationContext(), UpcomingAppointmentsActivity.class);
+            startActivity(intent);
+            finish();
+        });
+        btnx.setOnClickListener(v -> {
+            navigateToCancel();
         });
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-
-        });
-        Button button = findViewById(R.id.button);
-
-        // Set click listener on the button
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Call method to add data to Firestore
-                addDataToFirestore("doctors", "John Doe");
-            }
-        });
     }
-    private void addDataToFirestore(String collectionName, String name) {
-        Map<String, Object> city = new HashMap<>();
-        city.put("name", "Los Angeles");
 
-        db.collection(collectionName).document("LA")
-                .set(city)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(MainActivity.this, "Data added to Firestore", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainActivity.this, "Failed to add data to Firestore", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-    }
-    private void navigateToScheduleAppointment() {
-        Intent intent = new Intent(getApplicationContext(), ScheduleAppointment.class);
+    private void navigateToCancel() {
+        Intent intent = new Intent(getApplicationContext(), CancelAppointmentsActivity.class);
         startActivity(intent);
         finish();
     }

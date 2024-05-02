@@ -16,6 +16,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ResourceBundle;
+
 public class Login_Admin extends AppCompatActivity {
 
     TextInputEditText editTextEmail, editTextPassword;
@@ -28,7 +30,7 @@ public class Login_Admin extends AppCompatActivity {
     private static final String ADMIN_PASSWORD = "Wahaj@1";
 
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
         // Check if user is logged in (non-null) and update UI accordingly.
@@ -38,7 +40,7 @@ public class Login_Admin extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,8 @@ public class Login_Admin extends AppCompatActivity {
                 Toast.makeText(Login_Admin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), AddDoctor.class);
+                Intent intent = new Intent(getApplicationContext(), AdminProfile.class);
+                intent = new Intent(Login_Admin.this, AdminProfile.class);
                 startActivity(intent);
                 finish();
             }

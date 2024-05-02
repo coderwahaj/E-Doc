@@ -30,17 +30,17 @@ public class Login_Patient extends AppCompatActivity {
     ProgressBar progressbar;
     TextView txtView;
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
         // Check if user is logged in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), Launchpage.class);
             startActivity(intent);
             finish();
         }
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,13 +111,15 @@ public class Login_Patient extends AppCompatActivity {
                 String dateOfBirth = documentSnapshot.getString("dateOfBirth");
                 String gender=documentSnapshot.getString("gender");
                 String medicalHistory = documentSnapshot.getString("medicalHistory");
-
+                String email=documentSnapshot.getString("email");
                 // Create an intent to navigate to PatientProfile activity and pass the details
                 Intent intent = new Intent(Login_Patient.this, PatientProfile.class);
+
                 intent.putExtra("name", name);
                 intent.putExtra("dateOfBirth", dateOfBirth);
                 intent.putExtra("gender",gender);
                 intent.putExtra("medicalHistory", medicalHistory);
+                intent.putExtra("email",email);
                 startActivity(intent);
                 finish();
             } else {
