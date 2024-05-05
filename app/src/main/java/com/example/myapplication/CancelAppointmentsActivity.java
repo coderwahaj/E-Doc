@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,85 +28,81 @@ import java.util.Map;
 public class CancelAppointmentsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private CancelAppointmentAdapter adapter;
-    private List<Map<String, Object>> appointments = new ArrayList<>();
+    private AppointmentAdapter adapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+   private  String currentUserId = currentUser.getUid(); // or currentUser.getEmail() if you are using emails
+private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cancel_appointments);
+        setContentView(R.layout.activity_cancel_appointments); // Ensure this layout contains the RecyclerView
 
-        recyclerView = findViewById(R.id.recyclerViewCancelAppointments);
+        recyclerView = findViewById(R.id.textViewAppointmentDetails); // Correct ID for RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CancelAppointmentAdapter(appointments);
+        adapter = new AppointmentAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
-        // testDisplayWithStaticData();
-
-        Button okButton = findViewById(R.id.buttonOkCancel);
-        okButton.setOnClickListener(v -> {
-            finish(); // Close the CancelAppointmentsActivity
-            Intent intent = new Intent(CancelAppointmentsActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
-
-        checkAuthenticationAndFetch();
-    }
-    private void testDisplayWithStaticData() {
-        Map<String, Object> testAppointment = new HashMap<>();
-        testAppointment.put("name", "Test Name");
-        testAppointment.put("email", "test@email.com");
-        testAppointment.put("date", "2024-05-02");
-        testAppointment.put("time", "12:00 PM");
-        appointments.add(testAppointment);
-        adapter.notifyDataSetChanged();
-    }
-
-    private void checkAuthenticationAndFetch() {
-        FirebaseUser currentUser = auth.getCurrentUser();
+        // Get email passed from PatientProfile
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("email")) {
+            email = intent.getStringExtra("email"); // Store the email
+        }
         if (currentUser != null) {
-            fetchAppointments(currentUser.getUid());
+            fetchApprovedAppointments(currentUserId);
         } else {
-            Log.w("CancelAppointmentsActivity", "User not logged in.");
+            Toast.makeText(this, "No user logged in", Toast.LENGTH_SHORT).show();
+            // Handle user not logged in scenario
         }
     }
 
-    private void fetchAppointments(String userId) {
-        Log.d("CancelAppointmentsActivity", "Fetching all appointments");
+
+    private void fetchApprovedAppointments(String userId) {
         db.collection("ApprovedAppointments")
+                .whereEqualTo("userId", email) // Assuming 'userId' is the field in the Firestore documents
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Log.d("CancelAppointmentsActivity", "Query completed.");
-                        appointments.clear();
+                        List<Map<String, Object>> appointments = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Map<String, Object> appointment = new HashMap<>(document.getData());
-                            if (appointment.get("userId") != null && appointment.get("userId").equals(userId)) {
-                                appointment.put("id", document.getId());
-                                appointments.add(appointment);
-                                Log.d("CancelAppointmentsActivity", "Appointment for user added: " + appointment);
-                            }
+                            appointment.put("id", document.getId());
+                            appointments.add(appointment);
                         }
-                        if (appointments.isEmpty()) {
-                            Log.d("CancelAppointmentsActivity", "No appointments found for this user.");
-                        } else {
-                            adapter.notifyDataSetChanged();
-                            Log.d("CancelAppointmentsActivity", "Adapter notified of data change.");
-                        }
+                        adapter.setAppointments(appointments);
                     } else {
-                        Log.e("CancelAppointmentsActivity", "Error getting documents: ", task.getException());
+                        Log.w("FetchAppointments", "Error getting documents.", task.getException());
+                        Toast.makeText(this, "Failed to fetch appointments.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private class CancelAppointmentAdapter extends RecyclerView.Adapter<CancelAppointmentAdapter.ViewHolder> {
+
+    private void deleteAppointment(String appointmentId) {
+        db.collection("ApprovedAppointments").document(appointmentId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("DeleteAppointment", "Appointment successfully deleted.");
+                    fetchApprovedAppointments(currentUserId);  // Refresh the list
+                })
+                .addOnFailureListener(e -> {
+                    Log.w("DeleteAppointment", "Error deleting appointment.", e);
+                    Toast.makeText(this, "Failed to delete appointment.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.ViewHolder> {
 
         private List<Map<String, Object>> appointments;
 
-        CancelAppointmentAdapter(List<Map<String, Object>> appointments) {
+        AppointmentAdapter(List<Map<String, Object>> appointments) {
             this.appointments = appointments;
+        }
+
+        void setAppointments(List<Map<String, Object>> appointments) {
+            this.appointments = appointments;
+            notifyDataSetChanged();
         }
 
         @NonNull
@@ -122,30 +119,24 @@ public class CancelAppointmentsActivity extends AppCompatActivity {
             holder.textViewPatientEmail.setText((String) appointment.get("email"));
             holder.textViewAppointmentDate.setText((String) appointment.get("date"));
             holder.textViewAppointmentTime.setText((String) appointment.get("time"));
-            holder.buttonCancel.setOnClickListener(v -> removeAppointment(position));
+
+            holder.buttonCancel.setOnClickListener(v -> {
+                deleteAppointment((String) appointment.get("id"));
+            });
         }
+
+
 
         @Override
         public int getItemCount() {
             return appointments.size();
         }
 
-        private void removeAppointment(int position) {
-            if (position < appointments.size()) {
-                String appointmentId = (String) appointments.get(position).get("id");
-                db.collection("ApprovedAppointments").document(appointmentId).delete()
-                        .addOnSuccessListener(aVoid -> {
-                            appointments.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, appointments.size());
-                            Log.d("CancelAppointmentAdapter", "Appointment successfully canceled!");
-                        })
-                        .addOnFailureListener(e -> Log.w("CancelAppointmentAdapter", "Error canceling appointment", e));
-            }
-        }
-
         class ViewHolder extends RecyclerView.ViewHolder {
-            TextView textViewPatientName, textViewPatientEmail, textViewAppointmentDate, textViewAppointmentTime;
+            TextView textViewPatientName;
+            TextView textViewPatientEmail;
+            TextView textViewAppointmentDate;
+            TextView textViewAppointmentTime;
             Button buttonCancel;
 
             ViewHolder(View itemView) {
@@ -158,4 +149,6 @@ public class CancelAppointmentsActivity extends AppCompatActivity {
             }
         }
     }
-}
+    }
+
+

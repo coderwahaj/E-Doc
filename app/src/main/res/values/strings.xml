@@ -131,5 +131,7 @@
     <string name="add_doctor4">Add Doctor</string>
     <string name="generate_invoice2">Generate Invoice</string>
     <string name="cancel_appointment">Cancel Appointment</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="send">Send</string>
 
 </resources>

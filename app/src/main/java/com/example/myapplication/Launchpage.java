@@ -2,10 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Launchpage extends AppCompatActivity {
@@ -40,7 +37,7 @@ public class Launchpage extends AppCompatActivity {
             default:
                 throw new IllegalStateException("Unexpected role: " + role);
         }
-        intent.putExtra("role", role); // Pass the role to the login activity
+        intent.putExtra("role", role);
         startActivity(intent);
 
     }

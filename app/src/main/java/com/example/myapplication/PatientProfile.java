@@ -7,21 +7,24 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PatientProfile extends AppCompatActivity {
+
+    private static final int EDIT_PROFILE_REQUEST = 1; // Define a request code
 
     private TextView txtPatientName, txtPatientAge, txtPatientGender, txtPatientMedicalHistory;
     private Button btnEditProfile, btnBookAppointment, btnViewPastAppointments;
     private String patientEmail;
     private TextView txtPatientEmail;
+
     @SuppressLint({"SetTextI18n", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_profile);
 
-        // Initialize views
         // Initialize views
         txtPatientName = findViewById(R.id.txtPatientName);
         txtPatientAge = findViewById(R.id.txtPatientAge);
@@ -62,9 +65,17 @@ public class PatientProfile extends AppCompatActivity {
         intent.putExtra("gender", txtPatientGender.getText().toString());
         intent.putExtra("medicalHistory", txtPatientMedicalHistory.getText().toString());
         intent.putExtra("email", patientEmail); // Pass the email to the next activity
-        startActivity(intent);
+        startActivityForResult(intent, EDIT_PROFILE_REQUEST); // Start activity for result
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_PROFILE_REQUEST && resultCode == RESULT_OK) {
+            // Refresh profile data here
+            // For example, you can re-fetch the data from intent extras and update the views
+        }
+    }
 
     private void openBookAppointmentActivity() {
         Intent intent = new Intent(this, SearchDoctor.class);
@@ -75,7 +86,9 @@ public class PatientProfile extends AppCompatActivity {
 
     private void openViewPastAppointmentsActivity() {
         Intent intent = new Intent(this, CancelAppointmentsActivity.class);
+        intent.putExtra("USER_EMAIL", patientEmail); // Correctly passing the patient's email
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        finish();   }
+        finish();
+    }
 }

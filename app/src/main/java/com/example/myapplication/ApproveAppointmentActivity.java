@@ -8,16 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -32,7 +28,7 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
     private AppointmentAdapter adapter;
     private List<Map<String, Object>> appointments = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +40,10 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         Button okButton = findViewById(R.id.buttonOk);
         okButton.setOnClickListener(v -> {
-            FirebaseUser user = mAuth.getCurrentUser();
-                fetchUserDetailsAndNavigate1(user.getEmail());
-
+            Intent intent = new Intent(ApproveAppointmentActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish(); // Optionally keep this if you want to remove this activity from the back stack
         });
 
 
@@ -95,13 +92,10 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
             holder.textViewAppointmentTime.setText((String) appointment.get("time"));
 
             holder.buttonAccept.setOnClickListener(v -> {
-                moveAppointmentToCheckedAndRemove(appointment);
+                moveAppointment(appointment, "ApprovedAppointments");
             });
             holder.buttonReject.setOnClickListener(v -> {
-                moveAppointmentToCheckedAndRemove(appointment);
-            });
-            holder.buttonDone.setOnClickListener(v -> {
-                moveAppointmentToCheckedAndRemove(appointment);
+                moveAppointment(appointment, "TrashAppointments");
             });
         }
 
@@ -110,43 +104,27 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
             return appointments.size();
         }
 
-        private void moveAppointmentToCheckedAndRemove(Map<String, Object> appointment) {
-            String appointmentId = (String) appointment.get("id");  // Ensure this ID is correctly set when fetching appointments
-            if (appointmentId == null || appointmentId.isEmpty()) {
-                Log.w("AppointmentError", "Invalid appointment ID.");
-                Toast.makeText(ApproveAppointmentActivity.this, "Error: Invalid appointment ID.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // First, add the appointment to the "checked" collection
-            db.collection("checked")
+        private void moveAppointment(Map<String, Object> appointment, String collectionName) {
+            db.collection(collectionName)
                     .add(appointment)
                     .addOnSuccessListener(documentReference -> {
-                        // Successfully added to "checked", now delete from "ApprovedAppointments"
-                        deleteAppointmentFromApproved(appointmentId);
+                        int position = appointments.indexOf(appointment);
+                        if (position != -1) {
+                            appointments.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, appointments.size());
+                        }
+                        db.collection("pendingAppointments").document((String) appointment.get("id"))
+                                .delete()
+                                .addOnSuccessListener(aVoid -> Log.d("DeleteAppointment", "DocumentSnapshot successfully deleted!"))
+                                .addOnFailureListener(e -> Log.w("DeleteAppointment", "Error deleting document", e));
                     })
-                    .addOnFailureListener(e -> {
-                        Log.w("AppointmentError", "Failed to move appointment to 'checked': ", e);
-                        Toast.makeText(ApproveAppointmentActivity.this,"Failed to move appointment to checked.", Toast.LENGTH_SHORT).show();
-                    });
-        }
-
-        private void deleteAppointmentFromApproved(String appointmentId) {
-            db.collection("ApprovedAppointments").document(appointmentId)
-                    .delete()
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d("AppointmentDeleted", "Appointment successfully deleted from 'ApprovedAppointments'.");
-                        fetchAppointments();  // Refresh the list to reflect the deletion
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.w("AppointmentError", "Failed to delete appointment from 'ApprovedAppointments': ", e);
-                        Toast.makeText(ApproveAppointmentActivity.this, "Failed to delete appointment.", Toast.LENGTH_SHORT).show();
-                    });
+                    .addOnFailureListener(e -> Log.w("MoveAppointment", "Error adding document", e));
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
             TextView textViewPatientName, textViewPatientEmail, textViewAppointmentDate, textViewAppointmentTime;
-            Button buttonAccept, buttonReject, buttonDone;
+            Button buttonAccept, buttonReject;
 
             ViewHolder(View itemView) {
                 super(itemView);
@@ -156,39 +134,7 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
                 textViewAppointmentTime = itemView.findViewById(R.id.textViewAppointmentTime);
                 buttonAccept = itemView.findViewById(R.id.buttonAccept);
                 buttonReject = itemView.findViewById(R.id.buttonReject);
-                buttonDone = itemView.findViewById(R.id.buttonDone);
             }
         }
     }
-    private void fetchUserDetailsAndNavigate1(String userEmail) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("doctors")
-                .whereEqualTo("email", userEmail)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
-                        String name = documentSnapshot.getString("name");
-                        String category = documentSnapshot.getString("category");
-                        String qualification = documentSnapshot.getString("qualification");
-                        String email = documentSnapshot.getString("email");
-                        String experience=documentSnapshot.getString("experience");
-                        String phone= documentSnapshot.getString("phone");
-                        Intent intent = new Intent(ApproveAppointmentActivity.this, DoctorProfile.class);
-                        intent.putExtra("name", name);
-                        intent.putExtra("category", category);
-                        intent.putExtra("qualification", qualification);
-                        intent.putExtra("experience",experience);
-                        intent.putExtra("phone",phone);
-                        intent.putExtra("email", email);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(ApproveAppointmentActivity.this, "Doctor's details not found", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(e -> {
-                    Toast.makeText(ApproveAppointmentActivity.this, "Failed to fetch doctor details: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-    }
 }
-

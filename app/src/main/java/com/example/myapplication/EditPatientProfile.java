@@ -9,12 +9,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Calendar;
 
 public class EditPatientProfile extends AppCompatActivity {
 
@@ -79,6 +77,8 @@ public class EditPatientProfile extends AppCompatActivity {
                                             "gender", updatedGender)
                                     .addOnSuccessListener(aVoid -> {
                                         Toast.makeText(EditPatientProfile.this, "Profile Updated successfully.", Toast.LENGTH_SHORT).show();
+                                        Intent resultIntent = new Intent();
+                                        setResult(RESULT_OK, resultIntent);
                                         finish();
                                     })
                                     .addOnFailureListener(e -> {
@@ -92,5 +92,4 @@ public class EditPatientProfile extends AppCompatActivity {
                     }
                 });
     }
-
 }
