@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -28,11 +30,12 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
     private AppointmentAdapter adapter;
     private List<Map<String, Object>> appointments = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_approve_appointment);
+        setContentView(R.layout.approve_appointment);
 
         recyclerView = findViewById(R.id.recyclerViewAppointments);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -40,33 +43,37 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         Button okButton = findViewById(R.id.buttonOk);
         okButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ApproveAppointmentActivity.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish(); // Optionally keep this if you want to remove this activity from the back stack
+            finish();
         });
-
 
         fetchAppointments();
     }
 
     private void fetchAppointments() {
-        db.collection("pendingAppointments")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        appointments.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Map<String, Object> appointment = new HashMap<>(document.getData());
-                            appointment.put("id", document.getId());
-                            appointments.add(appointment);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String doctorEmail = currentUser.getEmail();
+            db.collection("pendingAppointments")
+                    .whereEqualTo("doctorEmail", doctorEmail)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            appointments.clear();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> appointment = new HashMap<>(document.getData());
+                                appointment.put("id", document.getId());
+                                appointments.add(appointment);
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Log.w("FetchAppointments", "Error getting documents.", task.getException());
                         }
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        Log.w("FetchAppointments", "Error getting documents.", task.getException());
-                    }
-                });
+                    });
+        } else {
+            Log.w("FetchAppointments", "No user logged in.");
+        }
     }
+
 
     private class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.ViewHolder> {
 
@@ -86,11 +93,10 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Map<String, Object> appointment = appointments.get(position);
-            holder.textViewPatientName.setText((String) appointment.get("name"));
-            holder.textViewPatientEmail.setText((String) appointment.get("email"));
+            holder.textViewPatientName.setText((String) appointment.get("patientName"));
+            holder.textViewPatientEmail.setText((String) appointment.get("userEmail"));
             holder.textViewAppointmentDate.setText((String) appointment.get("date"));
             holder.textViewAppointmentTime.setText((String) appointment.get("time"));
-
             holder.buttonAccept.setOnClickListener(v -> {
                 moveAppointment(appointment, "ApprovedAppointments");
             });
@@ -105,21 +111,23 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
         }
 
         private void moveAppointment(Map<String, Object> appointment, String collectionName) {
-            db.collection(collectionName)
-                    .add(appointment)
-                    .addOnSuccessListener(documentReference -> {
-                        int position = appointments.indexOf(appointment);
-                        if (position != -1) {
-                            appointments.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, appointments.size());
-                        }
-                        db.collection("pendingAppointments").document((String) appointment.get("id"))
-                                .delete()
-                                .addOnSuccessListener(aVoid -> Log.d("DeleteAppointment", "DocumentSnapshot successfully deleted!"))
-                                .addOnFailureListener(e -> Log.w("DeleteAppointment", "Error deleting document", e));
-                    })
-                    .addOnFailureListener(e -> Log.w("MoveAppointment", "Error adding document", e));
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                String userId = user.getUid();
+                appointment.put("userId", userId);
+                db.collection(collectionName)
+                        .add(appointment)
+                        .addOnSuccessListener(documentReference -> {
+                            String appointmentId = (String) appointment.get("id");
+                            appointments.remove(appointment);
+                            notifyItemRemoved(appointments.indexOf(appointment));
+                            db.collection("pendingAppointments").document(appointmentId)
+                                    .delete()
+                                    .addOnSuccessListener(aVoid -> Log.d("DeleteAppointment", "DocumentSnapshot successfully deleted!"))
+                                    .addOnFailureListener(e -> Log.w("DeleteAppointment", "Error deleting document", e));
+                        })
+                        .addOnFailureListener(e -> Log.w("MoveAppointment", "Error adding document", e));
+            }
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
@@ -137,4 +145,5 @@ public class ApproveAppointmentActivity extends AppCompatActivity {
             }
         }
     }
+
 }

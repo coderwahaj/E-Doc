@@ -133,5 +133,8 @@
     <string name="cancel_appointment">Cancel Appointment</string>
     <string name="enter_message">Enter Message</string>
     <string name="send">Send</string>
+    <string name="invoice">INVOICE</string>
+    <string name="doctor_name1">"Doctor Name: "</string>
+    <string name="pending_appointments4">Pending Appointments</string>
 
 </resources>

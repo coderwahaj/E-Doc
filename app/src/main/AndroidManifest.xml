@@ -13,9 +13,6 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".ChatActivity"
-            android:exported="false" />
-        <activity
             android:name=".AdminProfile"
             android:exported="false" />
         <activity
@@ -81,6 +78,13 @@
         <activity
             android:name=".SignupPatient"
             android:exported="true" />
+        <activity
+            android:name=".GenerateInvoice"
+            android:exported="true" />
+        <activity
+            android:name=".GeneratePrescription"
+            android:exported="true" />
+
     </application>
 
 </manifest>

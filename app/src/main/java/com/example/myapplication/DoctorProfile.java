@@ -10,11 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class DoctorProfile extends AppCompatActivity {
 
-    private TextView txtDoctorName, txtDoctorCategory, txtDoctorPhone, txtDoctorQualification, txtDoctorExperience, txtDoctorEmail;
+    private TextView txtDoctorName;
     private String doctorEmail;
-    private Button btnEditProfile, btnBookAppointment, btnViewPastAppointments;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,14 +21,14 @@ public class DoctorProfile extends AppCompatActivity {
 
         // Initialize views
         txtDoctorName = findViewById(R.id.txtDoctorName);
-        txtDoctorCategory = findViewById(R.id.txtDoctorCategory);
-        txtDoctorPhone = findViewById(R.id.txtDoctorPhone);
-        txtDoctorQualification = findViewById(R.id.txtDoctorQualification);
-        txtDoctorExperience = findViewById(R.id.txtDoctorExperience);
-        txtDoctorEmail = findViewById(R.id.txtdoctorEmail); // Make sure the ID is correct
-        btnEditProfile = findViewById(R.id.btnEditProfile);
-        btnBookAppointment = findViewById(R.id.btnBookAppointment);
-        btnViewPastAppointments = findViewById(R.id.btnViewPastAppointments);
+        TextView txtDoctorCategory = findViewById(R.id.txtDoctorCategory);
+        TextView txtDoctorPhone = findViewById(R.id.txtDoctorPhone);
+        TextView txtDoctorQualification = findViewById(R.id.txtDoctorQualification);
+        TextView txtDoctorExperience = findViewById(R.id.txtDoctorExperience);
+        TextView txtDoctorEmail = findViewById(R.id.txtdoctorEmail); // Make sure the ID is correct
+        Button btnEditProfile = findViewById(R.id.btnEditProfile);
+        Button btnBookAppointment = findViewById(R.id.btnBookAppointment);
+        Button btnViewPastAppointments = findViewById(R.id.btnViewPastAppointments);
 
         // Get data from intent
         Bundle extras = getIntent().getExtras();
@@ -52,7 +51,7 @@ public class DoctorProfile extends AppCompatActivity {
 
         btnEditProfile.setOnClickListener(v -> openEditProfileActivity());
         btnBookAppointment.setOnClickListener(v -> openViewPendingAppointmentActivity());
-        btnViewPastAppointments.setOnClickListener(v -> openViewPastAppointmentsActivity());
+        btnViewPastAppointments.setOnClickListener(v -> openGeneratePrescription());
     }
 
     private void openEditProfileActivity()
@@ -69,9 +68,18 @@ public class DoctorProfile extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openViewPastAppointmentsActivity() {
-        Intent intent = new Intent(DoctorProfile.this, UpcomingAppointmentsActivity.class);
+    /*private void openViewPastAppointmentsActivity() {
+        Intent intent = new Intent(DoctorProfile.this, GeneratePrescription.class);
         intent.putExtra("email", doctorEmail);
+        startActivity(intent);
+    }*/
+    private void openGeneratePrescription() {
+        Intent intent = new Intent(DoctorProfile.this, GeneratePrescription.class);
+        intent.putExtra("doctorEmail", doctorEmail);
+        intent.putExtra("doctorName", txtDoctorName.getText().toString().replace("Name: ", ""));
+        // Pass default or specific patient data, replace with actual data when available
+        intent.putExtra("patientEmail", "def@gmail.com");  // Placeholder, replace with actual patient email
+        intent.putExtra("patientName", "abc");  // Placeholder, replace with actual patient name
         startActivity(intent);
     }
 }

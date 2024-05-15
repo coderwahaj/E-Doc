@@ -27,12 +27,12 @@ public class ScheduleAppointment extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-
     private TextView datePickerEditText;
     private TimePicker timePicker;
     private boolean dateSelected = false;
     private boolean timeSelected = false;
     private Button confirmButton;
+    private  String doctorName,doctorCategory,fee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +42,9 @@ public class ScheduleAppointment extends AppCompatActivity {
         TextView doctorCategoryTextView = findViewById(R.id.doctorCategoryTextView);
         TextView feeTextView = findViewById(R.id.feeTextView);
 
-        String doctorName = getIntent().getStringExtra("doctorName");
-        String doctorCategory = getIntent().getStringExtra("doctorCategory");
-        String fee = getIntent().getStringExtra("fee");
+    doctorName = getIntent().getStringExtra("doctorName");
+         doctorCategory = getIntent().getStringExtra("doctorCategory");
+         fee = getIntent().getStringExtra("fee");
 
         doctorNameTextView.setText(doctorName);
         doctorCategoryTextView.setText(doctorCategory);
@@ -129,6 +129,8 @@ public class ScheduleAppointment extends AppCompatActivity {
                             appointment.put("email", userEmail);
                             appointment.put("date", selectedDate);
                             appointment.put("time", selectedTime);
+                            appointment.put("fee",fee);
+                            appointment.put("doctorname",doctorName);
 
                             db.collection("pendingAppointments").add(appointment)
                                     .addOnSuccessListener(documentReference -> {

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
     <LinearLayout
+        android:id="@+id/fixedHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="#FFFFFF"
         android:padding="24dp">
 
         <TextView
@@ -16,15 +18,15 @@
             android:layout_height="wrap_content"
             android:text="PRESCRIPTION"
             android:textSize="24sp"
-            android:textColor="#9C27B0"
+            android:textColor="#673AB7"
             android:gravity="center"
             android:paddingBottom="8dp"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#9C27B0"
-            android:layout_marginBottom="16dp"/>
+            android:background="#673AB7"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:id="@+id/txtDoctorName"
@@ -38,98 +40,152 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="Patient Name"/>
+            android:text="Patient Name"
+            android:layout_marginBottom="8dp"/>
 
-        <!-- Adding a static header for the table -->
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="8dp">
-
-            <EditText
-                android:id="@+id/edtItemName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Item Name"/>
-
-            <EditText
-                android:id="@+id/edtItemQuantity"
-                android:layout_width="0dp"
-                android:layout_height="64dp"
-                android:layout_weight="1"
-                android:hint="Quantity" />
-
-            <EditText
-                android:id="@+id/edtItemDosage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Dosage (per day)"/>
-
-            <Button
-                android:id="@+id/btnAddItem"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="+"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#CCCCCC">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Item Name"
-                android:gravity="center"
-                android:padding="8dp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Quantity"
-                android:gravity="center"
-                android:padding="8dp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Dosage"
-                android:gravity="center"
-                android:padding="8dp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Action"
-                android:gravity="center"
-                android:padding="8dp"/>
-        </LinearLayout>
-
-        <!-- Dynamic table area -->
-        <LinearLayout
-            android:id="@+id/layoutItems"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-
-        <Button
-            android:id="@+id/btnStorePrescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Generate Prescription"
-            android:background="#9C27B0"
-            android:textColor="#FFFFFF"
-            android:layout_margin="16dp"/>
+            android:layout_height="2dp"
+            android:layout_marginBottom="8dp"
+            android:background="#673AB7" />
 
     </LinearLayout>
-</ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fixedHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/edtItemName"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="@drawable/rounded_edittext"
+                        android:gravity="center"
+                        android:hint="Item Name"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:minHeight="64dp"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/edtItemQuantity"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="@drawable/rounded_edittext"
+                        android:gravity="center"
+                        android:hint="Quantity"
+                        android:inputType="number|textMultiLine"
+                        android:minHeight="64dp"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/edtItemDosage"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="@drawable/rounded_edittext"
+                        android:gravity="center"
+                        android:hint="Dosage\n(per day)"
+                        android:inputType="number|textMultiLine"
+                        android:minHeight="64dp"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/btnAddItem"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:background="@drawable/rounded_button"
+                        android:text="+"
+                        android:textSize="24sp"
+                        android:padding="16dp"
+                        android:gravity="center"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/tableHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#CCCCCC"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Item Name"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Quantity"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dosage"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Action"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <Button
+                android:id="@+id/btnStorePrescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@drawable/rounded_button"
+                android:text="Generate Prescription"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_margin="16dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

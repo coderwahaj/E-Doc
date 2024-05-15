@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txtDoctorname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:paddingBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/txtDoctorEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:paddingBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/txtDoctorFee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:paddingBottom="4dp"
+        android:background="#E8EAF6"/>
+
+    <TextView
+        android:id="@+id/txtAppointmentTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:paddingBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/txtAppointmentDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:paddingBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/txtPatientName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:paddingBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/txtPatientEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:paddingBottom="4dp"/>
+</LinearLayout>

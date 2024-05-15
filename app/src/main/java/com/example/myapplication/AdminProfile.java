@@ -41,9 +41,11 @@ public class AdminProfile extends AppCompatActivity {
     }
 
     private void openGenerateInvoiceActivity() {
-        // Start activity to generate invoices
-
+        Intent intent = new Intent(AdminProfile.this, GenerateInvoice.class);
+        startActivity(intent);
+        finish();
     }
+
 
     private void openViewReportsActivity()
     {
