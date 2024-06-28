@@ -1,4 +1,4 @@
-package com.example.myapplication;
+/*package com.example.myapplication;
 
         import android.os.StrictMode;
 
@@ -30,4 +30,4 @@ public class ConnectionClass {
         return conn;
 
     }
-}
+}*/

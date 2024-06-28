@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hi_baby"/>
+
     <Button
         android:id="@+id/logout"
         android:text="@string/logout"
@@ -22,14 +23,40 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/scheduleAppointmentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        android:text="@string/schedule_appointment"/>
 
+    <Button
+        android:id="@+id/viewAppointmentsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_appointments"/>
+
+    <Button
+        android:id="@+id/viewUpcomingAppointments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_upcoming"/>
+
+    <Button
+        android:id="@+id/btnChatWithDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chat_with_doctor"
+        android:onClick="openChatActivity" />
+
+    <Button
+        android:id="@+id/btnViewMedicalHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_medical_history"
+        android:onClick="openViewMedicalHistory" />
+
+    <Button
+        android:id="@+id/btnYourAppointments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_appointmentss"/>
 </LinearLayout>
