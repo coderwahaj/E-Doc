@@ -1,4 +1,4 @@
-package com.example.myapplication;
+/*package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,72 +7,59 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private Button logoutButton, scheduleAppointmentButton, viewAppointmentsButton, viewUpcomingAppointmentsButton;
+    private Button logoutButton, scheduleAppointmentButton, viewAppointmentsButton, chatWithDoctorButton, btnx;
     private TextView textView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
         logoutButton = findViewById(R.id.logout);
         scheduleAppointmentButton = findViewById(R.id.scheduleAppointmentButton);
         viewAppointmentsButton = findViewById(R.id.viewAppointmentsButton);
-        viewUpcomingAppointmentsButton = findViewById(R.id.viewUpcomingAppointments);
+        btnx=findViewById(R.id.btnYourAppointments);
+        //viewUpcomingAppointmentsButton = findViewById(R.id.viewUpcomingAppointments);
+        chatWithDoctorButton = findViewById(R.id.btnChatWithDoctor);
         textView = findViewById(R.id.user_details);
+
 
         checkUserAuthentication();
 
         logoutButton.setOnClickListener(v -> {
             auth.signOut();
-            navigateToScheduleAppointment(); // Navigate to ScheduleAppointment after logging out
+            navigateToLogin();
         });
 
         scheduleAppointmentButton.setOnClickListener(v -> {
-            navigateToScheduleAppointment(); // Navigate to ScheduleAppointment
+            navigateToScheduleAppointment();
         });
 
         viewAppointmentsButton.setOnClickListener(v -> {
-            navigateToApproveAppointmentActivity(); // Navigate to ApproveAppointmentActivity
+            navigateToApproveAppointmentActivity();
         });
 
-        viewUpcomingAppointmentsButton.setOnClickListener(v -> {
-            navigateToUpcomingAppointmentsActivity(); // Navigate to UpcomingAppointmentsActivity
+        btnx.setOnClickListener(v -> {
+            navigateToCancel();
         });
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+
+        chatWithDoctorButton.setOnClickListener(v -> {
+            openChatActivity();
         });
 
-        Button addButton = findViewById(R.id.button);
-        addButton.setOnClickListener(v -> addDataToFirestore("doctors", "John Doe"));
-    }
-
-    private void navigateToApproveAppointmentActivity() {
-        Intent intent = new Intent(this, ApproveAppointmentActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     private void navigateToLogin() {
@@ -81,16 +68,27 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void navigateToScheduleAppointment() {
-        Intent intent = new Intent(getApplicationContext(), ScheduleAppointment.class);
+    private void navigateToCancel() {
+        Intent intent = new Intent(getApplicationContext(), CancelAppointmentsActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void navigateToUpcomingAppointmentsActivity() {
-        Intent intent = new Intent(this, UpcomingAppointmentsActivity.class);
+    private void navigateToScheduleAppointment() {
+        Intent intent = new Intent(getApplicationContext(), ScheduleAppointment.class);
         startActivity(intent);
-        finish(); // Consider whether you really want to call finish() here
+    }
+
+    private void navigateToApproveAppointmentActivity() {
+        Intent intent = new Intent(this, ApproveAppointmentActivity.class);
+        startActivity(intent);
+    }
+
+
+
+    private void openChatActivity() {
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
     }
 
     private void checkUserAuthentication() {
@@ -98,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         if (user == null) {
             navigateToLogin();
         } else {
-            // Displaying the user's email and name (if available)
             String userDetails = "Email: " + user.getEmail();
             if (user.getDisplayName() != null && !user.getDisplayName().isEmpty()) {
                 userDetails += "\nName: " + user.getDisplayName();
@@ -106,14 +103,4 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(userDetails);
         }
     }
-
-    private void addDataToFirestore(String collectionName, String name) {
-        Map<String, Object> data = new HashMap<>();
-        data.put("name", name);
-
-        db.collection(collectionName).document("LA")
-                .set(data)
-                .addOnSuccessListener(aVoid -> Toast.makeText(MainActivity.this, "Data added to Firestore", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(MainActivity.this, "Failed to add data to Firestore", Toast.LENGTH_SHORT).show());
-    }
-}
+}*/

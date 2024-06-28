@@ -6,7 +6,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.Button;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
@@ -29,19 +28,23 @@ public class ScheduleAppointment extends AppCompatActivity {
 
     private TextView datePickerEditText;
     private TimePicker timePicker;
+    private Button confirmButton;
     private boolean dateSelected = false;
     private boolean timeSelected = false;
-    private Button confirmButton;
+    private String doctorName, doctorEmail;
+    private String patientName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_appointment);
 
-        // Initialize Firestore and FirebaseAuth
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
+        doctorName = getIntent().getStringExtra("doctorName");
+        doctorEmail = getIntent().getStringExtra("doctorEmail");
+        patientName = getIntent().getStringExtra("patientName");
         datePickerEditText = findViewById(R.id.datePickerEditText);
         timePicker = findViewById(R.id.timePicker);
         confirmButton = findViewById(R.id.confirmButton);
@@ -73,8 +76,7 @@ public class ScheduleAppointment extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
-            // Optionally redirect to login activity
-            Intent intent = new Intent(this, Login.class);
+            Intent intent = new Intent(this, Login_Patient.class);
             startActivity(intent);
             finish();
         }
@@ -82,32 +84,26 @@ public class ScheduleAppointment extends AppCompatActivity {
 
     private void showDatePicker() {
         final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                (view, year1, monthOfYear, dayOfMonth) -> {
-                    String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1;
+                (view, year, month, dayOfMonth) -> {
+                    String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
                     datePickerEditText.setText(selectedDate);
                     dateSelected = true;
-                }, year, month, day);
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
 
     private void showMessageAndNavigate(String message) {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            String userEmail = user.getEmail();
-            String userName = user.getDisplayName();
-            String selectedDate = datePickerEditText.getText().toString();
-            String selectedTime = timePicker.getHour() + ":" + timePicker.getMinute();
-
             Map<String, Object> appointment = new HashMap<>();
-            appointment.put("name", userName);
-            appointment.put("email", userEmail);
-            appointment.put("date", selectedDate);
-            appointment.put("time", selectedTime);
+            appointment.put("userId", user.getUid());
+            appointment.put("userEmail", user.getEmail());
+            appointment.put("date", datePickerEditText.getText().toString());
+            appointment.put("time", timePicker.getHour() + ":" + timePicker.getMinute());
+            appointment.put("doctorName", doctorName);  // Using the passed doctor name
+            appointment.put("doctorEmail", doctorEmail);  // Using the passed doctor email
+            appointment.put("patientName", patientName);  // Storing the patient's name without email
 
             db.collection("pendingAppointments").add(appointment)
                     .addOnSuccessListener(documentReference -> {
@@ -121,8 +117,8 @@ public class ScheduleAppointment extends AppCompatActivity {
     }
 
     private void navigateToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent(this, PatientProfile.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
     }

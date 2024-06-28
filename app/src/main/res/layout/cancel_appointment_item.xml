@@ -40,13 +40,12 @@
     </LinearLayout>
 
     <Button
-        android:id ="@+id/buttonDone"
+        android:id="@+id/buttonCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/generate_prescription"
+        android:text="@string/cancel"
         android:textSize="12sp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:layout_marginEnd="4dp"/>
-
 </LinearLayout>

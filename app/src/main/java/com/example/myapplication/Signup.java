@@ -1,3 +1,4 @@
+
 package com.example.myapplication;
 
 import android.content.Intent;
@@ -79,7 +80,7 @@ public class Signup extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(Signup.this, "Sign up successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Signup.this, MainActivity.class);
+                        Intent intent = new Intent(Signup.this, PatientProfile.class);
                         startActivity(intent);
                         finish();
                     } else {

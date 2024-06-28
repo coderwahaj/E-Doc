@@ -1,4 +1,4 @@
-package com.example.myapplication;
+/*package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -109,4 +109,4 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-}
+}*/

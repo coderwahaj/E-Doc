@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="feedback_recorded">#09901A</color>
+    <color name="no_feedback_recorded">#DB2214</color>
 </resources>

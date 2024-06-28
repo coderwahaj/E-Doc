@@ -8,13 +8,13 @@
     android:gravity="center"
     android:layout_height="match_parent"
     android:padding="80dp"
-    >
+    tools:context=".Login_Doctor">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/login"
+        android:text="@string/doctorlogsin"
         android:textSize="25sp"
         android:layout_marginBottom="20dp"
         android:textStyle="bold" />
@@ -52,16 +52,6 @@
         android:text="@string/login"
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:id="@+id/signupNow"
-        android:text="@string/create_new_sign_up"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

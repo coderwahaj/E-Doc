@@ -8,13 +8,13 @@
     android:gravity="center"
     android:layout_height="match_parent"
     android:padding="80dp"
-    >
+    tools:context=".Login_Patient">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/login"
+        android:text="@string/patientlogin"
         android:textSize="25sp"
         android:layout_marginBottom="20dp"
         android:textStyle="bold" />
@@ -60,7 +60,7 @@
         android:gravity="center"
         android:layout_marginTop="20dp"
         android:id="@+id/signupNow"
-        android:text="@string/create_new_sign_up"
+        android:text="@string/create_new_account_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

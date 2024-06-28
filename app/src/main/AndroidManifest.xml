@@ -15,19 +15,13 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".UpcomingAppointmentsActivity"
+            android:name=".GiveFeedback"
             android:exported="false" />
         <activity
-            android:name=".ApproveAppointmentActivity"
+            android:name=".Feedback"
             android:exported="false" />
         <activity
-            android:name=".ScheduleAppointment"
-            android:exported="false" />
-        <activity
-            android:name=".Signup"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
+            android:name=".Launchpage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +30,64 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".SearchDoctor"
+            android:exported="false" />
+        <activity
+            android:name=".UpcomingAppointmentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddDoctor"
+            android:exported="false" />
+        <activity
+            android:name=".EditPatientProfile"
+            android:exported="false" />
+        <activity
+            android:name=".PatientProfile"
+            android:exported="false" />
+        <activity
+            android:name=".EditDoctorProfile"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorProfile"
+            android:exported="false" />
+        <activity
+            android:name=".AdminProfile"
+            android:exported="false" />
+        <activity
+            android:name=".Login_Admin"
+            android:exported="false" />
+        <activity
+            android:name=".Login_Doctor"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpDoctor"
+            android:exported="false" />
+        <activity
+            android:name=".Login_Patient"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpPatient"
+            android:exported="false" />
+        <activity
+            android:name=".CancelAppointmentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MessagesAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ApproveAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GeneratePrescription"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleAppointment"
+            android:exported="false" />
+        <activity
+            android:name=".Signup"
             android:exported="false" />
     </application>
 

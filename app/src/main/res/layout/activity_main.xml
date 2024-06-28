@@ -41,9 +41,22 @@
         android:text="@string/view_upcoming"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnChatWithDoctor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button"/>
+        android:text="@string/chat_with_doctor"
+        android:onClick="openChatActivity" />
 
+    <Button
+        android:id="@+id/btnViewMedicalHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_medical_history"
+        android:onClick="openViewMedicalHistory" />
+
+    <Button
+        android:id="@+id/btnYourAppointments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_appointmentss"/>
 </LinearLayout>
