@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_profile_placeholder"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/txtDoctorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <TextView
+            android:id="@+id/txtDoctorCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:id="@+id/txtDoctorPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        <TextView
+            android:id="@+id/txtdoctorEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:id="@+id/txtDoctorQualification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Qualification"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:id="@+id/txtDoctorExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Experience"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <Button
+            android:id="@+id/btnEditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:background="@drawable/table_border"
+                android:padding="8dp">
+
+                <TableRow>
+                    <Button
+                        android:id="@+id/btnBookAppointment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_pendingappointments"/>
+                </TableRow>
+
+                <TableRow>
+                    <Button
+                        android:id="@+id/btnViewPastAppointments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_upcomingappointments"/>
+                </TableRow>
+
+                <TableRow>
+                    <Button
+                        android:id="@+id/doctchat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_chats"/>
+                </TableRow>
+
+
+
+                <!-- Additional action buttons can be added here if needed -->
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

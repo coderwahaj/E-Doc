@@ -8,26 +8,16 @@
     android:gravity="center"
     android:layout_height="match_parent"
     android:padding="80dp"
-    tools:context=".Signup">
+    tools:context=".Login_Doctor">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/signup"
+        android:text="@string/doctorlogsin"
         android:textSize="25sp"
         android:layout_marginBottom="20dp"
         android:textStyle="bold" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/name"
-            android:hint="@string/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -52,19 +42,6 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/black">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/confirmPassword"
-            android:hint="@string/confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <ProgressBar
         android:id="@+id/progressbar"
         android:visibility="gone"
@@ -72,18 +49,9 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:text="@string/signup"
-        android:id="@+id/btn_signup"
+        android:text="@string/login"
+        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:id="@+id/loginNow"
-        android:text="@string/already_have_an_account_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </LinearLayout>

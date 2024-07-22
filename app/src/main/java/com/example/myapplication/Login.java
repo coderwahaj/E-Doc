@@ -1,4 +1,4 @@
-package com.example.myapplication;
+/*package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -88,11 +88,14 @@ public class Login extends AppCompatActivity {
                                 progressbar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(getApplicationContext(),"login Successful ",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),"Login Successful "
+                                            ,Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                } else {
+                                }
+                                else
+                                {
                                     // If sign in fails, display a message to the user.
 
                                     Toast.makeText(Login.this, "Authentication failed.",
@@ -105,12 +108,5 @@ public class Login extends AppCompatActivity {
 
             }
         });
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
-}
+}*/

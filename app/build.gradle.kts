@@ -21,8 +21,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
     }
@@ -33,19 +33,22 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.jtds)
+
+    // Firebase BOM
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    // Firebase libraries without specifying versions
     implementation("com.google.firebase:firebase-analytics")
-    implementation ("com.google.firebase:firebase-firestore:24.11.1")
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-database")
+    implementation ("com.google.android.material:material:1.4.0")
 
 }
